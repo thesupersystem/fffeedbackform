@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Form to PDF</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Formative Feedback Form</h1>
+        <form id="userForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="class">Class:</label>
+            <input type="text" id="class" name="class" required>
+
+            <label for="assignment">Assignment:</label>
+            <input type="text" id="assignment" name="assignment" required>
+
+            <label for="feedback">Feedback:</label>
+            <input type="text" id="feedback" name="feedback" required>
+
+            <label for="photo">Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+
+            <button type="button" onclick="generatePDF()">Download PDF</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
