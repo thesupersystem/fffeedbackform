@@ -18,7 +18,7 @@ function generatePDF() {
         doc.text(20, 30, `Class: ${className}`);
         doc.text(20, 40, `Assignment: ${assignment}`);
         doc.text(20, 60, `Feedback: ${feedback}`);
-        doc.addImage(imgData, 'JPEG', 20, 40, 150, 150);
+        doc.addImage(imgData, 'JPEG', 20, 80, 150, 150);
 
         doc.save('output.pdf');
     };
