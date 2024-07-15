@@ -1,7 +1,7 @@
 function generatePDF() {
     const name = document.getElementById('name').value;
     const className = document.getElementById('class').value;
-    const className = document.getElementById('studentid').value;
+    const studentid = document.getElementById('studentid').value;
     const assignment = document.getElementById('assignment').value;
     const feedback = document.getElementById('feedback').value;
     const photoFile = document.getElementById('photo').files[0];
