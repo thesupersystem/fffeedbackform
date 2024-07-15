@@ -1,6 +1,7 @@
 function generatePDF() {
     const name = document.getElementById('name').value;
     const className = document.getElementById('class').value;
+    const className = document.getElementById('studentid').value;
     const assignment = document.getElementById('assignment').value;
     const feedback = document.getElementById('feedback').value;
     const photoFile = document.getElementById('photo').files[0];
@@ -17,10 +18,11 @@ function generatePDF() {
         const doc = new jsPDF();
 
         doc.text(20, 20, `Name: ${name}`);
-        doc.text(20, 30, `Class: ${className}`);
-        doc.text(20, 40, `Assignment: ${assignment}`);
-        doc.text(20, 50, `Feedback: ${feedback}`);
-        doc.addImage(imgData, 'JPEG', 20, 60, 150, 150);
+        doc.text(20, 30, `Student ID: ${studentid}`);
+        doc.text(20, 40, `Class: ${className}`);
+        doc.text(20, 50, `Assignment: ${assignment}`);
+        doc.text(20, 60, `Feedback: ${feedback}`);
+        doc.addImage(imgData, 'JPEG', 20, 70, 150, 150);
 
         // Construct filename using name, class, and assignment values
         const filename = `${name}_${className}_${assignment}.pdf`;
