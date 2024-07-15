@@ -25,7 +25,7 @@ function generatePDF() {
         doc.addImage(imgData, 'JPEG', 20, 70, 150, 150);
 
         // Construct filename using name, class, and assignment values
-        const filename = `${name}_${className}_${assignment}.pdf`;
+        const filename = `${name}_${studentid}_${className}_${assignment}.pdf`;
 
         // Replace spaces with underscores and remove any non-alphanumeric characters except for underscores and dots
         const sanitizedFilename = filename.replace(/\s+/g, '_').replace(/[^\w.-]/g, '');
