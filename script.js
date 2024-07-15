@@ -1,7 +1,7 @@
 function generatePDF() {
     const name = document.getElementById('name').value;
     const className = document.getElementById('class').value;
-    const studentid = document.getElementById('studentid').value;
+    const studentid= document.getElementById('studentid').value;
     const assignment = document.getElementById('assignment').value;
     const feedback = document.getElementById('feedback').value;
     const photoFile = document.getElementById('photo').files[0];
@@ -17,12 +17,20 @@ function generatePDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
+        // Set font size for title
+        doc.setFontSize(12);
         doc.text(20, 20, `Name: ${name}`);
         doc.text(20, 30, `Student ID: ${studentid}`);
         doc.text(20, 40, `Class: ${className}`);
         doc.text(20, 50, `Assignment: ${assignment}`);
-        doc.text(20, 60, `Feedback: ${feedback}`);
-        doc.addImage(imgData, 'JPEG', 20, 70, 150, 150);
+        
+        // Set font size for feedback
+        doc.setFontSize(12);
+        const feedbackLines = doc.splitTextToSize(`Feedback: ${feedback}`, 170);
+        doc.text(20, 60, feedbackLines);
+
+        // Add the image
+        doc.addImage(imgData, 'JPEG', 20, 70 + feedbackLines.length * 10, 100, 100);
 
         // Construct filename using name, class, and assignment values
         const filename = `${name}_${studentid}_${className}_${assignment}.pdf`;
