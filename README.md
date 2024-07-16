@@ -7,4 +7,11 @@ https://thesupersystem.github.io/fffeedbackform/
 //////------ FUTURE UPDATES ----- //////
 * Multiple Image Upload
 * Password Protected PDF
-* Timestamp
+
+
+
+////------- 16/07/24 - Update 1.1 -----////
+
+Timestamp added to PDF export.
+
+
