@@ -32,7 +32,7 @@ function generatePDF() {
         // Set font size for feedback
         doc.setFontSize(12);
         const feedbackLines = doc.splitTextToSize(`Feedback: ${feedback}`, 170);
-        doc.text(20, 60, feedbackLines);
+        doc.text(30, 60, feedbackLines);
 
         // Add the image
         doc.addImage(imgData, 'JPEG', 20, 70 + feedbackLines.length * 10, 100, 100);
