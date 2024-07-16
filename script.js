@@ -17,6 +17,10 @@ function generatePDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
+         // Get the current date
+        const date = new Date();
+        const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        
         // Set font size for title
         doc.setFontSize(12);
         doc.text(20, 20, `Name: ${name}`);
@@ -31,6 +35,10 @@ function generatePDF() {
 
         // Add the image
         doc.addImage(imgData, 'JPEG', 20, 70 + feedbackLines.length * 10, 100, 100);
+
+        // Add the date timestamp
+        doc.setFontSize(10);
+        doc.text(20, 90 + feedbackLines.length * 10 + 160, `Date: ${formattedDate}`);
 
         // Construct filename using name, class, and assignment values
         const filename = `${name}_${studentid}_${className}_${assignment}.pdf`;
