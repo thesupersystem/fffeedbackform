@@ -1,7 +1,7 @@
 function generatePDF() {
     const name = document.getElementById('name').value;
     const className = document.getElementById('class').value;
-    const studentid= document.getElementById('studentid').value;
+    const studentid= document.getElementById('studentId').value;
     const assignment = document.getElementById('assignment').value;
     const feedback = document.getElementById('feedback').value;
     const photoFile = document.getElementById('photo').files[0];
@@ -41,8 +41,11 @@ function generatePDF() {
         // doc.setFontSize(10);
         // doc.text(20, 90 + feedbackLines.length * 10 + 160, `Date: ${formattedDate}`);
 
+        // Encrypt the PDF with the student ID as the password
+        doc.encrypt(studentId);
+
         // Construct filename using name, class, and assignment values
-        const filename = `${name}_${studentid}_${className}_${assignment}.pdf`;
+        const filename = `${name}_${className}_${assignment}.pdf`;
 
         // Replace spaces with underscores and remove any non-alphanumeric characters except for underscores and dots
         const sanitizedFilename = filename.replace(/\s+/g, '_').replace(/[^\w.-]/g, '');
