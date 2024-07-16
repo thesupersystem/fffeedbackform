@@ -23,6 +23,7 @@ function generatePDF() {
         
         // Set font size for title
         doc.setFontSize(12);
+        doc.text(20,10, `Date: ${formattedDate}`);
         doc.text(20, 20, `Name: ${name}`);
         doc.text(20, 30, `Student ID: ${studentid}`);
         doc.text(20, 40, `Class: ${className}`);
@@ -37,8 +38,8 @@ function generatePDF() {
         doc.addImage(imgData, 'JPEG', 20, 70 + feedbackLines.length * 10, 100, 100);
 
         // Add the date timestamp
-        doc.setFontSize(10);
-        doc.text(20, 90 + feedbackLines.length * 10 + 160, `Date: ${formattedDate}`);
+        // doc.setFontSize(10);
+        // doc.text(20, 90 + feedbackLines.length * 10 + 160, `Date: ${formattedDate}`);
 
         // Construct filename using name, class, and assignment values
         const filename = `${name}_${studentid}_${className}_${assignment}.pdf`;
