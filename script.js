@@ -1,7 +1,7 @@
-async function generatePDF() {
+function generatePDF() {
     const name = document.getElementById('name').value;
-    const studentId = document.getElementById('studentId').value;
     const className = document.getElementById('class').value;
+    const studentid= document.getElementById('studentid').value;
     const assignment = document.getElementById('assignment').value;
     const feedback = document.getElementById('feedback').value;
     const photoFile = document.getElementById('photo').files[0];
@@ -12,57 +12,33 @@ async function generatePDF() {
     }
 
     const reader = new FileReader();
-    reader.onload = async function (e) {
+    reader.onload = function (e) {
         const imgData = e.target.result;
-        const { PDFDocument, rgb, StandardFonts } = PDFLib;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-        // Create a new PDF document
-        const pdfDoc = await PDFDocument.create();
+        // Set font size for title
+        doc.setFontSize(12);
+        doc.text(20, 20, `Name: ${name}`);
+        doc.text(20, 30, `Student ID: ${studentid}`);
+        doc.text(20, 40, `Class: ${className}`);
+        doc.text(20, 50, `Assignment: ${assignment}`);
+        
+        // Set font size for feedback
+        doc.setFontSize(12);
+        const feedbackLines = doc.splitTextToSize(`Feedback: ${feedback}`, 170);
+        doc.text(20, 60, feedbackLines);
 
-        // Embed the image
-        const jpgImage = await pdfDoc.embedJpg(imgData);
+        // Add the image
+        doc.addImage(imgData, 'JPEG', 20, 70 + feedbackLines.length * 10, 100, 100);
 
-        // Add a page to the PDF
-        const page = pdfDoc.addPage([600, 800]);
+        // Construct filename using name, class, and assignment values
+        const filename = `${name}_${studentid}_${className}_${assignment}.pdf`;
 
-        // Set up font sizes and positioning
-        const fontSize = 16;
-        page.drawText(`Name: ${name}`, { x: 50, y: 750, size: fontSize });
-        page.drawText(`Student ID: ${studentId}`, { x: 50, y: 730, size: fontSize });
-        page.drawText(`Class: ${className}`, { x: 50, y: 710, size: fontSize });
-        page.drawText(`Assignment: ${assignment}`, { x: 50, y: 690, size: fontSize });
+        // Replace spaces with underscores and remove any non-alphanumeric characters except for underscores and dots
+        const sanitizedFilename = filename.replace(/\s+/g, '_').replace(/[^\w.-]/g, '');
 
-        const feedbackFontSize = 12;
-        page.drawText(`Feedback: ${feedback}`, { x: 50, y: 670, size: feedbackFontSize, maxWidth: 500 });
-
-        // Add the image to the page
-        page.drawImage(jpgImage, {
-            x: 50,
-            y: 450,
-            width: 300,
-            height: 200,
-        });
-
-        // Get the current date
-        const date = new Date();
-        const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-        const dateFontSize = 10;
-        page.drawText(`Date: ${formattedDate}`, { x: 50, y: 430, size: dateFontSize });
-
-        // Encrypt the PDF with the student ID as the password
-        const pdfBytes = await pdfDoc.save({
-            useObjectStreams: false,
-            userPassword: studentId,
-        });
-
-        // Create a Blob from the PDF bytes
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-
-        // Create a download link and click it
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `${name}_${className}_${assignment}.pdf`.replace(/\s+/g, '_').replace(/[^\w.-]/g, '');
-        link.click();
+        doc.save(sanitizedFilename);
     };
     reader.readAsDataURL(photoFile);
 }
